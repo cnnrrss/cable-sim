@@ -35,4 +35,25 @@ life cycle of communication and edge workloads and to effectively monitor and sh
 
 **Key Assumption: For the excercise, focus on a specific depth of the network. Such as the Headend / Hub.**
 
+## Choose Simulation Tool(s)
 
+Next step is to evaluate the suggested simulation modules including: NS-3, Shadow, and others.
+
+Ultimately, there is a lot of research in this space that I'm not privy to. 
+I settled pretty quickly on _shadow_ purely based on a personal bias for wanting to delve into Rust, and also the impression from their docs appeared the most modern. 
+If this were "real life" decision making, I'd be more methodical spike out a simulation for our use case with each tool to ensure it met requirements. 
+
+I'd also take into consideration other factors like: Ease of use, Performance, Community support, etc.
+
+However, although the documentation briefly mentions Docker support and a quasi-Dockerfile in their GHA CI pipelines, I got errors running the tests and decided to look at NS-3.
+
+The impression I got from NS-3 was that this is the industry standard, and _most likely_ fits our use case better. To my surprise, [this legend](https://github.com/emanuelegiona/ns3-base-docker) created a useable Docker image today!
+
+## Simulation Environment Setup
+
+Docker is faster and more portable, and more lightweight than spinning up a full linux VM which is key for rapid proto-typing.
+
+```
+docker build . -t ns3-ub22.04
+
+```
