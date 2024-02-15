@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  ns-3:
+    container_name: ns3
+    image: ns3-ub22.04
+    stdin_open: true
+    tty: true
+    command: ["/bin/bash", "-c", "./run_sim.sh"]
+    volumes:
+      - ./data:/ns-3/data
+    depends_on:
+      - fluent-bit
+    environment:
+      SERVICE_NAME: ns3
+    logging:
+      driver: fluentd
+      options:
+        tag: ns3-logs
+        env: SERVICE_NAME
+
+  fluent-bit:
+    image: fluent/fluent-bit:latest
+    command: "/fluent-bit/bin/fluent-bit -c /configs/config.conf"
+    ports:
+        - "24224:24224/tcp"
+        - "24224:24224/udp"
+    depends_on:
+      prometheus:
+        condition: service_started
+    volumes:
+        - ./config.conf:/configs/config.conf
+        - ./parsers.conf:/configs/parsers.conf
+
