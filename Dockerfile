@@ -92,5 +92,8 @@ RUN cd /home && \
  rm -rf "$TMP_DOWNLOAD_DIR" && ./build-debug.sh
 
 
-CMD ["/bin/bash"]
+COPY run_sim.sh .
 
+RUN chmod +x /run_sim.sh
+
+CMD ["/bin/bash"]

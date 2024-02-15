@@ -57,3 +57,37 @@ Docker is faster and more portable, and more lightweight than spinning up a full
 docker build . -t ns3-ub22.04
 
 ```
+
+## The Prototype
+
+I picked out a few key non-functional requirements from the challenge description:
+
+- On-demand access to subsets of data
+- PB Scale
+- High availability - shouldn't tax network
+- No centralized storage
+
+**Key Assumption: True de-centralized storage, such as a Torrent protocol, is out of scope for this excercise. Instead I went with a _distributed_ system.**
+
+For these requirements, my instinct tells me using a SQL Data Warehouse like: Druid, Snowflake, AWS Redshift, or BigQuery, etc. Each of these solutions enables OLAP queries in milliseconds on high-cardinality and high-dimensional data sets with billions to trillions of rows without pre-defining or caching queries in advance. The selection would come down to who the users are, what are the latency requirements for queries, what is the cost sensitivity and operations capacity,
+the other parts of the tech stack ecosystem.
+
+**Initial Stack**
+
+
+### Environment Setup
+```
+cd ns-3
+docker build . -t ns3-ub22.04
+```
+
+## Follow Up Questions
+- How far along is vCCAP? Have cable providers adopted this or are the Headend/Hubs still running dedicated traditional Communication Technology hardware?
+
+## Roadmap
+
+### High Level System Design
+
+A log indexing Data Pipeline fed from nodes of a Cable Network might look something like this:
+
+<img src="./resources/system-design.svg"/>
