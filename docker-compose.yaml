@@ -32,3 +32,26 @@ services:
         - ./config.conf:/configs/config.conf
         - ./parsers.conf:/configs/parsers.conf
 
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-storage:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yaml
+    restart: always
+
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    restart: always
+
+volumes:
+  prometheus-storage:
+  grafana-storage:
