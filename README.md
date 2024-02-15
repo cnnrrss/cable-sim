@@ -54,8 +54,7 @@ The impression I got from NS-3 was that this is the industry standard, and _most
 Docker is faster and more portable, and more lightweight than spinning up a full linux VM which is key for rapid proto-typing.
 
 ```
-docker build . -t ns3-ub22.04
-
+docker compose up --build --force-recreate 
 ```
 
 ## The Prototype
